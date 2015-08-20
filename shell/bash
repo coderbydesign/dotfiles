@@ -1,0 +1,23 @@
+export RACK_ENV='development'
+export CLICOLOR=1
+export LSCOLORS=ExFxCxDxBxegedabagacad
+export PS1="\[\033[0;37m\]walsh \[\033[0m\]\w: \`ruby -e \"print (%x{git branch 2> /dev/null}.split(%r{\n}).grep(/^\*/).first || '').gsub(/^\* (.+)$/, '(\1) ')\"\`\[\033[00m\]♣\[\033[00m\] "
+export WORK_DIR=/Users/keithwalsh/work
+export BUNDLER_EDITOR=sub
+
+_complete_git() {
+  if [ -d .git ]; then
+    branches=`git branch -a | cut -c 3-`
+    tags=`git tag`
+    cur="${COMP_WORDS[COMP_CWORD]}"
+    COMPREPLY=( $(compgen -W "${branches} ${tags}" -- ${cur}) )
+  fi
+}
+
+complete -F _complete_git git checkout
+source ~/git-completion.bash
+
+function sub {
+  subl
+  subl -n .
+}
