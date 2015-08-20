@@ -16,3 +16,4 @@ _complete_git() {
 
 complete -F _complete_git git checkout
 source ~/git-completion.bash
+source ~/.profile
